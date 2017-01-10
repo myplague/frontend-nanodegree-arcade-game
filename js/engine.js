@@ -79,6 +79,7 @@ var Engine = (function(global) {
      * on the entities themselves within your app.js file).
      */
     function update(dt) {
+
         updateEntities(dt);
         // checkCollisions();
     }
@@ -95,7 +96,13 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+        player.detectCollisions(allEnemies);
+        player.detectGemCollisions(allGems);
+
+
     }
+
+
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
@@ -148,10 +155,14 @@ var Engine = (function(global) {
          * the render function you have defined.
          */
         allEnemies.forEach(function(enemy) {
-            enemy.render();
+            enemy.render(ctx);
         });
 
         player.render();
+
+        allGems.forEach(function(gem){
+          gem.render(ctx);
+        })
     }
 
     /* This function does nothing but it could have been a good place to
@@ -171,7 +182,10 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Gem Blue.png',
+        'images/Gem Orange.png',
+        'images/Gem Green.png'
     ]);
     Resources.onReady(init);
 
